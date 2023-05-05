@@ -7,6 +7,7 @@ import (
 	"os"
 )
 
+// Loggers
 type Loggers struct {
 	Debug *log.Logger
 	Log   *log.Logger
