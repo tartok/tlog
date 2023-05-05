@@ -7,10 +7,24 @@ import (
 	"os"
 )
 
+type Loggers struct {
+	Debug *log.Logger
+	Log   *log.Logger
+	Con   *log.Logger
+	Err   *log.Logger
+}
+
 var Debug = log.New(io.Discard, "", log.Lmsgprefix+log.LstdFlags)
 var Log = log.New(io.Discard, "", log.Lmsgprefix+log.LstdFlags)
 var Con = log.New(io.Discard, "", log.Lmsgprefix+log.LstdFlags)
 var Err = log.New(io.Discard, "", log.Lmsgprefix+log.LstdFlags)
+
+var DefLoggers = Loggers{
+	Debug: Debug,
+	Log:   Log,
+	Con:   Con,
+	Err:   Err,
+}
 
 func InitDebug(prefix string, outs ...io.Writer) {
 	Debug.SetPrefix(prefix)
