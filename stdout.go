@@ -18,7 +18,10 @@ func (o out) Write(p []byte) (n int, err error) {
 		return len(p), nil
 	}
 	for i, c := range o.outs {
-		if i == 0 {
+		if c == nil {
+			continue
+		}
+		if i == 0 && len(o.c) > 0 {
 			c(o.c)
 			n, err = c(p)
 			c([]byte(color.White))
