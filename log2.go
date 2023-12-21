@@ -27,24 +27,24 @@ var DefLoggers = Loggers{
 	Err:   Err,
 }
 
-func InitDebug(prefix string, outs ...io.Writer) {
+func InitDebug(prefix string, outs ...func(p []byte) (n int, err error)) {
 	Debug.SetPrefix(prefix)
-	Debug.SetOutput(getOut(color.Blue, outs...))
+	Debug.SetOutput(GetOut(color.Blue, outs...))
 }
-func InitLog(prefix string, outs ...io.Writer) {
+func InitLog(prefix string, outs ...func(p []byte) (n int, err error)) {
 	Log.SetPrefix(prefix)
-	Log.SetOutput(getOut(color.Gray, outs...))
+	Log.SetOutput(GetOut(color.Gray, outs...))
 }
-func InitCon(prefix string, outs ...io.Writer) {
+func InitCon(prefix string, outs ...func(p []byte) (n int, err error)) {
 	Con.SetPrefix(prefix)
-	Con.SetOutput(getOut(color.Green, outs...))
+	Con.SetOutput(GetOut(color.Green, outs...))
 }
-func InitErr(prefix string, outs ...io.Writer) {
+func InitErr(prefix string, outs ...func(p []byte) (n int, err error)) {
 	Err.SetPrefix(prefix)
-	Err.SetOutput(getOut(color.Red, outs...))
+	Err.SetOutput(GetOut(color.Red, outs...))
 }
 
 func init() {
-	InitErr("", os.Stdout)
-	InitCon("", os.Stdout)
+	InitErr("", os.Stdout.Write)
+	InitCon("", os.Stdout.Write)
 }

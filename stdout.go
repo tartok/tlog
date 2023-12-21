@@ -8,7 +8,7 @@ import (
 type (
 	out struct {
 		c      []byte
-		outs   []io.Writer
+		outs   []func(p []byte) (n int, err error)
 		prefix []byte
 	}
 )
@@ -19,17 +19,17 @@ func (o out) Write(p []byte) (n int, err error) {
 	}
 	for i, c := range o.outs {
 		if i == 0 {
-			c.Write(o.c)
-			n, err = c.Write(p)
-			c.Write([]byte(color.White))
+			c(o.c)
+			n, err = c(p)
+			c([]byte(color.White))
 		} else {
-			c.Write(p)
+			c(p)
 		}
 	}
 	return
 }
 
-func getOut(c string, outs ...io.Writer) io.Writer {
+func GetOut(c string, outs ...func(p []byte) (n int, err error)) io.Writer {
 	o := out{c: []byte(c), outs: outs}
 	return o
 }
