@@ -36,7 +36,3 @@ func GetOut(c string, outs ...func(p []byte) (n int, err error)) io.Writer {
 	o := out{c: []byte(c), outs: outs}
 	return o
 }
-func drrorOut() io.Writer {
-	o := out{c: []byte(color.Red)}
-	return o
-}
