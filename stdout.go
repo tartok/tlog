@@ -26,7 +26,7 @@ func (o out) Write(p []byte) (n int, err error) {
 			n, err = c(p)
 			c([]byte(color.White))
 		} else {
-			c(p)
+			n, err = c(p)
 		}
 	}
 	return
