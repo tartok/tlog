@@ -7,6 +7,6 @@ import (
 )
 
 func TestLog(t *testing.T) {
-	tlog.Log.SetOutput(tlog.GetOut("", os.Stdout.Write))
+	tlog.Log.SetOutput(tlog.GetOut("", os.Stdout))
 	tlog.Log.Println("1")
 }
